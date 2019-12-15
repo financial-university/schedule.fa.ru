@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <div class="row">
       <div class="item">
         <h1>
@@ -7,9 +7,10 @@
         </h1>
       </div>
       <div class="item">
-        <CalendarUrl/>ss
+        <CalendarUrl/>
       </div>
     </div>
+<!--    Тут правая сторона   -->
   </div>
 </template>
 
@@ -26,18 +27,4 @@ export default {
 
 </script>
 
-<style scoped>
-    .list-complete-item {
-        transition: all 1s;
-        /*display: inline-block;*/
-        margin-right: 10px;
-    }
-    .list-complete-enter, .list-complete-leave-to
-    {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    .list-complete-leave-active {
-        position: absolute;
-    }
-</style>
+
