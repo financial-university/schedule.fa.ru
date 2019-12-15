@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Node
-.node_modules
-.idea
+/node_modules
+/idea
 .idea
