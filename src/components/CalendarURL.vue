@@ -3,25 +3,25 @@
         <h4>
             Кто вы?
         </h4>
-        <input type="radio" id="one" value="groups" v-model="type">
+        <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type">
         <label for="one">Студент</label>
         <br>
-        <input type="radio" id="two" value="lecturers" v-model="type">
+        <input  v-on:click="choiceType('groups')" type="radio" id="two" value="lecturers" v-model="type">
         <label for="two">Преподаватель</label>
         <transition name="slide-fade">
             <div key=1 v-if="type === 'groups' || type === 'lecturers' ">
                 <div key=1 v-if="type === 'groups' ">
-                    <h4>Выберите вашу группу</h4>
+                    <h4>Группа</h4>
                 </div>
                 <div key=1 v-else-if="type === 'lecturers'">
-                    <h4>Bведите свое ФИО</h4>
+                    <h4>Фамилия имя отчество</h4>
                 </div>
                 <div class="row">
                     <div class="search-wrapper panel-heading col-sm-12">
                         <input class="form-control" type="text" v-model="searchQuery" placeholder=")" />
                     </div>
                 </div>
-                <div v-if="name == null">
+                <div v-if="searchQuery !== name">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div v-if="computedItems.length">
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-    import {getData} from "../api";
-    import {protocolHTTP, protocolWEBCAL, url} from "../config";
+    import { getData } from "../api";
+    import { protocolHTTP, protocolWEBCAL, url } from "../config";
     import { isIOS, isMobileSafari, isSafari, osName } from 'mobile-device-detect';
 
     export default {
@@ -88,13 +88,6 @@
             }
         },
         watch: {
-            type: async function () {
-                this.name = null;
-                this.searchQuery = '';
-                if (this.type === "lecturers" || this.type === "groups") {
-                    getData(this.type).then(response => this.items = response);
-                }
-            },
             searchQuery: async function () {
                 if (this.name !== this.searchQuery) {
                     this.name = null;
@@ -106,6 +99,15 @@
                 this.id = id;
                 this.name = label.trim();
                 this.searchQuery = this.name;
+            },
+            choiceType: async function (type) {
+                this.type = type;
+                this.name = null;
+                this.id = null;
+                if (this.type === "lecturers" || this.type === "groups") {
+                    getData(this.type).then(response => this.items = response);
+                }
+                this.searchQuery = ''
             },
             url (webcal = false) {
                 let type;
