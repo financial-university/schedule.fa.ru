@@ -1,24 +1,28 @@
 <template>
     <div>
-        <h4>
-            Кто вы?
-        </h4>
-        <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type">
-        <label for="one">Студент</label>
-        <br>
-        <input  v-on:click="choiceType('groups')" type="radio" id="two" value="lecturers" v-model="type">
-        <label for="two">Преподаватель</label>
+        <div class="uk-margin">
+            <div class="uk-button-group ">
+                <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type" hidden>
+                <label for="one" class="uk-button uk-button-default " style="border-radius: 50px 0 0 50px;"
+                       v-bind:class="{ 'uk-button-primary': type === 'groups' }">Студент</label>
+                <input v-on:click="choiceType('lecturers')" type="button" id="two" value="lecturers" v-model="type"
+                       hidden>
+                <label for="two" class="uk-button uk-button-default " style="border-radius: 0 50px 50px 0;"
+                       v-bind:class="{ 'uk-button-primary': type === 'lecturers' }">Преподаватель</label>
+            </div>
+        </div>
         <transition name="slide-fade">
-            <div key=1 v-if="type === 'groups' || type === 'lecturers' ">
-                <div key=1 v-if="type === 'groups' ">
-                    <h4>Группа</h4>
-                </div>
-                <div key=1 v-else-if="type === 'lecturers'">
-                    <h4>Фамилия имя отчество</h4>
-                </div>
+            <div>
+<!--                    key=1 v-if="type === 'groups' || type === 'lecturers' ">-->
+<!--                <div key=1 v-if="type === 'groups' ">-->
+<!--                    <h4>Группа</h4>-->
+<!--                </div>-->
+<!--                <div key=1 v-else-if="type === 'lecturers'">-->
+<!--                    <h4>Фамилия имя отчество</h4>-->
+<!--                </div>-->
                 <div class="row">
                     <div class="search-wrapper panel-heading col-sm-12">
-                        <input class="form-control" type="text" v-model="searchQuery" placeholder=")" />
+                        <input class="form-control uk-input" type="text" v-model="searchQuery" v-bind:placeholder="getPlaceholder()"/>
                     </div>
                 </div>
                 <div v-if="searchQuery !== name">
@@ -26,9 +30,12 @@
                         <div class="panel-body">
                             <div v-if="computedItems.length">
                                 <transition-group name="list-complete" tag="div">
-                                    <div v-for="item in computedItems" v-bind:key="item.id" v-bind:data-index="item.label"
+                                    <div v-for="item in computedItems" v-bind:key="item.id"
+                                         v-bind:data-index="item.label"
                                          class="list-complete-item">
-                                        <button v-on:click="choiceItem(item.id, item.label)">{{ item.label }}</button>
+                                        <button class="uk-button uk-button-default uk-width-expand"
+                                                v-on:click="choiceItem(item.id, item.label)">{{ item.label }}
+                                        </button>
                                     </div>
                                 </transition-group>
                             </div>
@@ -46,7 +53,7 @@
                     <a :href="url(true)">Подписаться на календарь</a>
                 </div>
                 <div v-else>
-                    <p>
+                    <p class="uk-input uk-form-success uk-margin-top" disabled>
                         {{ url(false) }}
                     </p>
                 </div>
@@ -56,9 +63,9 @@
 </template>
 
 <script>
-    import { getData } from "../api";
-    import { protocolHTTP, protocolWEBCAL, url } from "../config";
-    import { isIOS, isMobileSafari, isSafari, osName } from 'mobile-device-detect';
+    import {getData} from "../api";
+    import {protocolHTTP, protocolWEBCAL, url} from "../config";
+    import {isIOS, isMobileSafari, isSafari, osName} from 'mobile-device-detect';
 
     export default {
         name: "calendar-url",
@@ -77,13 +84,14 @@
             this.searchQuery = this.$route.query.name;
         },
         computed: {
-            computedItems (){
+            computedItems() {
                 const filterMax = (fn, c) => x => c && fn(x) && c--;
                 return this.items.filter(filterMax((item) => {
-                    return item.label.trim().toUpperCase().startsWith(this.searchQuery.toUpperCase()) }, 10)
+                        return item.label.trim().toUpperCase().startsWith(this.searchQuery.toUpperCase())
+                    }, 10)
                 );
             },
-            computedParams () {
+            computedParams() {
                 return this.id && this.type && this.name
             }
         },
@@ -109,7 +117,7 @@
                 }
                 this.searchQuery = ''
             },
-            url (webcal = false) {
+            url(webcal = false) {
                 let type;
                 switch (this.type) {
                     case "lecturers":
@@ -126,6 +134,21 @@
                     return protocolWEBCAL + url + '/calendar/' + type + '/' + this.id
                 }
                 return protocolHTTP + url + '/calendar/' + type + '/' + this.id
+            },
+            getPlaceholder(){
+                let str;
+                switch (this.type) {
+                    case "lecturers":
+                        str = "Введите ваше ФИО";
+                        break;
+                    case "groups":
+                        str = "Введите вашу группу";
+                        break;
+                    default:
+                        str = "Выберите кто вы";
+                        break;
+                }
+                return str;
             }
         }
     }
@@ -135,12 +158,13 @@
     .list-complete-item {
         transition: all 0.4s ease;
     }
-    .list-complete-enter, .list-complete-leave-to
-    {
+
+    .list-complete-enter, .list-complete-leave-to {
         opacity: 0;
         height: 0;
         transform: translateY(60px);
     }
+
     .list-complete-leave-active {
         position: absolute;
         opacity: 0;
@@ -149,11 +173,12 @@
     .slide-fade-enter-active {
         transition: all .3s ease;
     }
+
     .slide-fade-leave-active {
         transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
-    .slide-fade-enter, .slide-fade-leave-to
-    {
+
+    .slide-fade-enter, .slide-fade-leave-to {
         transform: translateY(40px);
         opacity: 0;
     }
