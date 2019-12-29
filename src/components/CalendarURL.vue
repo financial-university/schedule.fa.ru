@@ -13,16 +13,17 @@
         </div>
         <transition name="slide-fade">
             <div>
-<!--                    key=1 v-if="type === 'groups' || type === 'lecturers' ">-->
-<!--                <div key=1 v-if="type === 'groups' ">-->
-<!--                    <h4>Группа</h4>-->
-<!--                </div>-->
-<!--                <div key=1 v-else-if="type === 'lecturers'">-->
-<!--                    <h4>Фамилия имя отчество</h4>-->
-<!--                </div>-->
+                <!--                    key=1 v-if="type === 'groups' || type === 'lecturers' ">-->
+                <!--                <div key=1 v-if="type === 'groups' ">-->
+                <!--                    <h4>Группа</h4>-->
+                <!--                </div>-->
+                <!--                <div key=1 v-else-if="type === 'lecturers'">-->
+                <!--                    <h4>Фамилия имя отчество</h4>-->
+                <!--                </div>-->
                 <div class="row">
                     <div class="search-wrapper panel-heading col-sm-12">
-                        <input class="form-control uk-input" type="text" v-model="searchQuery" v-bind:placeholder="getPlaceholder()"/>
+                        <input class="form-control uk-input" type="text" v-model="searchQuery"
+                               v-bind:placeholder="getPlaceholder()"/>
                     </div>
                 </div>
                 <div v-if="searchQuery !== name">
@@ -53,9 +54,11 @@
                     <a :href="url(true)">Подписаться на календарь</a>
                 </div>
                 <div v-else>
-                    <p class="uk-input uk-form-success uk-margin-top" disabled>
+                    <button class="uk-input uk-form-success uk-margin-top" v-clipboard:copy="url(false)"
+                            v-clipboard:success="onCopy"
+                            v-clipboard:error="onError">
                         {{ url(false) }}
-                    </p>
+                    </button>
                 </div>
             </div>
         </transition>
@@ -135,7 +138,7 @@
                 }
                 return protocolHTTP + url + '/calendar/' + type + '/' + this.id
             },
-            getPlaceholder(){
+            getPlaceholder() {
                 let str;
                 switch (this.type) {
                     case "lecturers":
@@ -149,6 +152,12 @@
                         break;
                 }
                 return str;
+            },
+            onCopy: function () {
+                alert('Ссылка скопирована');
+            },
+            onError: function () {
+                alert('Ошибка при копировании ссылки');
             }
         }
     }

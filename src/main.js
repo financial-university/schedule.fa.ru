@@ -4,8 +4,10 @@ import Router from 'vue-router'
 import App from '@/App'
 import {routes} from './routes';
 import axios from "axios";
+import VueClipboard from "vue-clipboard2";
 
 Vue.use(Router, axios);
+Vue.use(VueClipboard);
 Vue.use(Vuex);
 
 const router = new Router({

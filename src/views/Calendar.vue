@@ -1,22 +1,23 @@
 <template>
-    <div>
+    <div class="uk-container">
         <main>
-            <nav class="uk-navbar-container" uk-navbar>
+            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                 <div class="uk-navbar-left">
-                  <a href="" class="uk-navbar-item uk-logo">Календарь</a>
+
                     <ul class="uk-navbar-nav">
                         <li class="">
                             <router-link v-bind:to="'/'">
-                                <a>Назад</a>
+                                <a>👈</a>
                             </router-link>
                         </li>
                     </ul>
+                    <a href="" class="uk-navbar-item uk-logo">Календарь</a>
                 </div>
             </nav>
 <!--            <header>-->
 <!--                <h1>Календарь</h1>-->
 <!--            </header>-->
-            <section class="cards uk-margin-top">
+            <section class="uk-margin-top uk-child-width-1-2@m uk-grid">
                 <article>
                     <CalendarUrl/>
                 </article>
