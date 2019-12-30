@@ -17,11 +17,11 @@
 <!--            <header>-->
 <!--                <h1>Календарь</h1>-->
 <!--            </header>-->
-            <section class="uk-margin-top uk-child-width-1-2@m uk-grid">
-                <article>
-                    <CalendarUrl/>
+            <section class="uk-margin-top uk-flex uk-flex-center uk-flex-wrap uk-flex-wrap-around">
+                <article class="uk-margin-bottom">
+                    <CalendarUrl class="link-generator"/>
                 </article>
-                <article>
+                <article class="uk-margin-left uk-width-auto@s uk-width-1-2@m">
                     <Instructions/>
                 </article>
             </section>
@@ -60,6 +60,10 @@
     }
 
     /* Grid styles -------------------------------------------------*/
+    .link-generator {
+        width: auto;
+        max-width: 400px;
+    }
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(50vh, 1fr));

@@ -41,7 +41,9 @@
                                 </transition-group>
                             </div>
                             <div v-else>
-                                <p>Группа не найдена</p>
+                                <button class="uk-input uk-form-danger uk-margin-top calendar-link">
+                                    Группа не найдена
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -54,7 +56,7 @@
                     <a :href="url(true)">Подписаться на календарь</a>
                 </div>
                 <div v-else>
-                    <button class="uk-input uk-form-success uk-margin-top" v-clipboard:copy="url(false)"
+                    <button class="uk-input uk-form-success uk-margin-top calendar-link" v-clipboard:copy="url(false)"
                             v-clipboard:success="onCopy"
                             v-clipboard:error="onError">
                         {{ url(false) }}
@@ -164,6 +166,15 @@
 </script>
 
 <style scoped>
+    .form-control {
+        text-align: center;
+        border-radius: 50px;
+    }
+
+    .calendar-link {
+        border-radius: 50px;
+    }
+
     .list-complete-item {
         transition: all 0.4s ease;
     }

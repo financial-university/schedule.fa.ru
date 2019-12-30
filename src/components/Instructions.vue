@@ -5,7 +5,7 @@
             <li><a href="#">Apple</a></li>
         </ul>
 
-        <ul class="uk-switcher uk-margin">
+        <ul class="uk-switcher uk-margin instruction-block">
             <li><p>Для Android подписка работает через <b>Google календарь</b></p>
                 <p>Выберите свою группу, скопируйте ссылку и вставтьте <a
                         href="https://calendar.google.com/calendar/r/settings/addbyurl">на сайте google календаря</a>
@@ -27,5 +27,7 @@
 </script>
 
 <style scoped>
-
+    .instruction-block{
+        line-height: 1.3;
+    }
 </style>
