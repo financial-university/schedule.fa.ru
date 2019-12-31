@@ -74,6 +74,20 @@
 
     a {
         text-decoration: none;
+        color: #007d8c;
+    }
+
+    .uk-tab > .uk-active > a {
+        color: #333;
+        border-color: #007d8c;
+    }
+
+    .uk-button-primary {
+        background-color: #007d8c;
+    }
+
+    .uk-button-primary:focus, .uk-button-primary:hover {
+        background-color: #0091a2;
     }
 
 </style>

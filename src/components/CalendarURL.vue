@@ -1,25 +1,21 @@
 <template>
     <div>
-        <div class="uk-margin">
-            <div class="uk-button-group ">
-                <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type" hidden>
-                <label for="one" class="uk-button uk-button-default " style="border-radius: 50px 0 0 50px;"
-                       v-bind:class="{ 'uk-button-primary': type === 'groups' }">Студент</label>
-                <input v-on:click="choiceType('lecturers')" type="button" id="two" value="lecturers" v-model="type"
-                       hidden>
-                <label for="two" class="uk-button uk-button-default " style="border-radius: 0 50px 50px 0;"
-                       v-bind:class="{ 'uk-button-primary': type === 'lecturers' }">Преподаватель</label>
+        <div class="row">
+            <div class="uk-margin col-sm-12">
+                <div class="uk-button-group">
+                    <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type" hidden>
+                    <label for="one" class="uk-button uk-button-default" style="border-radius: 50px 0 0 50px;"
+                           v-bind:class="{ 'uk-button-primary': type === 'groups' }">Студент</label>
+                    <input v-on:click="choiceType('lecturers')" type="button" id="two" value="lecturers" v-model="type"
+                           hidden>
+                    <label for="two" class="uk-button uk-button-default" style="border-radius: 0 50px 50px 0;"
+                           v-bind:class="{ 'uk-button-primary': type === 'lecturers' }">Преподаватель</label>
+                </div>
             </div>
         </div>
+
         <transition name="slide-fade">
             <div>
-                <!--                    key=1 v-if="type === 'groups' || type === 'lecturers' ">-->
-                <!--                <div key=1 v-if="type === 'groups' ">-->
-                <!--                    <h4>Группа</h4>-->
-                <!--                </div>-->
-                <!--                <div key=1 v-else-if="type === 'lecturers'">-->
-                <!--                    <h4>Фамилия имя отчество</h4>-->
-                <!--                </div>-->
                 <div class="row">
                     <div class="search-wrapper panel-heading col-sm-12">
                         <input class="form-control uk-input" type="text" v-model="searchQuery"
@@ -31,17 +27,18 @@
                         <div class="panel-body">
                             <div v-if="computedItems.length">
                                 <transition-group name="list-complete" tag="div">
-                                    <div v-for="item in computedItems" v-bind:key="item.id"
+                                    <ul v-for="item in computedItems" v-bind:key="item.id"
                                          v-bind:data-index="item.label"
-                                         class="list-complete-item">
-                                        <button class="uk-button uk-button-default uk-width-expand"
-                                                v-on:click="choiceItem(item.id, item.label)">{{ item.label }}
-                                        </button>
-                                    </div>
+                                         class="list-complete-item uk-list-striped">
+                                        <li class="uk-button uk-button-default uk-width-expand"
+                                            v-on:click="choiceItem(item.id, item.label)">
+                                            {{ item.label }}
+                                        </li>
+                                    </ul>
                                 </transition-group>
                             </div>
                             <div v-else>
-                                <button class="uk-input uk-form-danger uk-margin-top calendar-link">
+                                <button class="uk-input uk-form-danger calendar-link">
                                     Группа не найдена
                                 </button>
                             </div>
@@ -53,10 +50,15 @@
         <transition name="slide-fade">
             <div v-if="computedParams">
                 <div v-if="isApple">
-                    <a :href="url(true)">Подписаться на календарь</a>
+                    <a :href="url(true)">
+                        <button class="uk-input uk-form-success calendar-link">
+                            Подписаться на календарь
+                        </button>
+                    </a>
                 </div>
                 <div v-else>
-                    <button class="uk-input uk-form-success uk-margin-top calendar-link" v-clipboard:copy="url(false)"
+                    <button class="uk-input uk-form-success uk-margin-top calendar-link"
+                            v-clipboard:copy="url(false)"
                             v-clipboard:success="onCopy"
                             v-clipboard:error="onError">
                         {{ url(false) }}
@@ -166,6 +168,21 @@
 </script>
 
 <style scoped>
+
+    .uk-form-success, .uk-form-success:focus {
+        color: #007d8c;
+        border-color: #007d8c;
+    }
+
+    button.uk-input.uk-form-success.calendar-link {
+        cursor: pointer;
+        background-color: #007d8c;
+        color: white;
+    }
+
+    .search-wrapper input {
+        margin-bottom: 20px;
+    }
     .form-control {
         text-align: center;
         border-radius: 50px;
