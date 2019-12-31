@@ -4,4 +4,4 @@
 
 export const protocolHTTP = "https://";
 export const protocolWEBCAL = "webcal://";
-export const url = "bot.fa.ru";
+export const url = "schedule.fa.ru";

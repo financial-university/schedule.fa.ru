@@ -13,8 +13,8 @@
                 </article>
             </section>
             <section class="uk-margin-top uk-flex uk-flex-center uk-flex-left@m uk-flex-wrap uk-flex-wrap-around">
-                <article class="uk-margin-bottom">
-                    <CalendarUrl class="link-generator"/>
+                <article class="uk-margin-bottom uk-width-1-1 uk-width-large@s">
+                    <CalendarUrl/>
                 </article>
                 <article class="uk-margin-left uk-width-auto@s uk-width-1-2@m">
                     <CalendarGuide/>
@@ -59,12 +59,6 @@
         background: #007d8c;
     }
 
-
-    /* Grid styles -------------------------------------------------*/
-    .link-generator {
-        width: auto;
-        max-width: 400px;
-    }
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(50vh, 1fr));

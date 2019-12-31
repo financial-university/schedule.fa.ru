@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="row">
-            <div class="uk-margin col-sm-12">
-                <div class="uk-button-group">
+            <div class="uk-margin">
+                <div class="uk-button-group uk-child-width-1-2 uk-width-1-1">
                     <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type" hidden>
                     <label for="one" class="uk-button uk-button-default" style="border-radius: 50px 0 0 50px;"
                            v-bind:class="{ 'uk-button-primary': type === 'groups' }">Студент</label>
@@ -17,7 +17,7 @@
         <transition name="slide-fade">
             <div>
                 <div class="row">
-                    <div class="search-wrapper panel-heading col-sm-12">
+                    <div class="search-wrapper panel-heading">
                         <input class="form-control uk-input" type="text" v-model="searchQuery"
                                v-bind:placeholder="getPlaceholder()"/>
                     </div>
