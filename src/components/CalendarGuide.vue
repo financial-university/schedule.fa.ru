@@ -4,7 +4,6 @@
             <li><a href="#">Android</a></li>
             <li><a href="#">Apple</a></li>
         </ul>
-
         <ul class="uk-switcher uk-margin instruction-block"
             uk-switcher="active: 2">
             <li>

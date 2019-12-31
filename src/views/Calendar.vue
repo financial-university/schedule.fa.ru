@@ -1,22 +1,18 @@
 <template>
     <div>
-        <nav class="uk-navbar-container" uk-navbar>
-            <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
-                    <li class="uk-active">
-                        <a href="">s</a>
-                    </li>
-<!--                    <li class="uk-parent">-->
-<!--                        <a href="">s</a>-->
-<!--                    </li>-->
-<!--                    <li>-->
-<!--                        <a href=""/>-->
-<!--                    </li>-->
-                </ul>
-            </div>
-        </nav>
         <main class="uk-container">
-            <section class="uk-margin-top uk-flex uk-flex-center uk-flex-wrap uk-flex-wrap-around">
+            <section class="uk-margin-top uk-flex uk-flex-center uk-flex-left@m uk-flex-wrap uk-flex-wrap-around">
+                <article class="uk-margin-bottom">
+                    <h1 class="uk-margin-small-bottom">
+                        Календарь
+                    </h1>
+                    <ul class="uk-subnav">
+                        <li><a href="https://ruz.fa.ru">Расписание</a></li>
+                        <li><a href="https://bot.fa.ru">Бот расписания</a></li>
+                    </ul>
+                </article>
+            </section>
+            <section class="uk-margin-top uk-flex uk-flex-center uk-flex-left@m uk-flex-wrap uk-flex-wrap-around">
                 <article class="uk-margin-bottom">
                     <CalendarUrl class="link-generator"/>
                 </article>
@@ -62,6 +58,7 @@
     .uk-navbar-container {
         background: #007d8c;
     }
+
 
     /* Grid styles -------------------------------------------------*/
     .link-generator {

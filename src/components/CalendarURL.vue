@@ -26,16 +26,14 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div v-if="computedItems.length">
-                                <transition-group name="list-complete" tag="div">
-                                    <ul v-for="item in computedItems" v-bind:key="item.id"
-                                         v-bind:data-index="item.label"
-                                         class="list-complete-item uk-list-striped">
-                                        <li class="uk-button uk-button-default uk-width-expand"
-                                            v-on:click="choiceItem(item.id, item.label)">
-                                            {{ item.label }}
-                                        </li>
-                                    </ul>
-                                </transition-group>
+                                <ul v-for="item in computedItems" v-bind:key="item.id"
+                                    v-bind:data-index="item.label"
+                                    class="list-complete-item uk-list-striped">
+                                    <li class="uk-button uk-button-default uk-width-expand"
+                                        v-on:click="choiceItem(item.id, item.label)">
+                                        {{ item.label }}
+                                    </li>
+                                </ul>
                             </div>
                             <div v-else>
                                 <button class="uk-input uk-form-danger calendar-link">
@@ -192,31 +190,4 @@
         border-radius: 50px;
     }
 
-    .list-complete-item {
-        transition: all 0.4s ease;
-    }
-
-    .list-complete-enter, .list-complete-leave-to {
-        opacity: 0;
-        height: 0;
-        transform: translateY(60px);
-    }
-
-    .list-complete-leave-active {
-        position: absolute;
-        opacity: 0;
-    }
-
-    .slide-fade-enter-active {
-        transition: all .3s ease;
-    }
-
-    .slide-fade-leave-active {
-        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-
-    .slide-fade-enter, .slide-fade-leave-to {
-        transform: translateY(40px);
-        opacity: 0;
-    }
 </style>
