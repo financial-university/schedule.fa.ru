@@ -3,13 +3,13 @@
         <div class="row">
             <div class="uk-margin">
                 <div class="uk-button-group uk-child-width-1-2 uk-width-1-1">
-                    <input v-on:click="choiceType('groups')" type="radio" id="one" value="groups" v-model="type" hidden>
+                    <input v-on:click="choiceType('group')" type="radio" id="one" value="group" v-model="type" hidden>
                     <label for="one" class="uk-button uk-button-default" style="border-radius: 50px 0 0 50px;"
-                           v-bind:class="{ 'uk-button-primary': type === 'groups' }">Студент</label>
-                    <input v-on:click="choiceType('lecturers')" type="button" id="two" value="lecturers" v-model="type"
+                           v-bind:class="{ 'uk-button-primary': type === 'group' }">Студент</label>
+                    <input v-on:click="choiceType('lecturer')" type="button" id="two" value="lecturer" v-model="type"
                            hidden>
                     <label for="two" class="uk-button uk-button-default" style="border-radius: 0 50px 50px 0;"
-                           v-bind:class="{ 'uk-button-primary': type === 'lecturers' }">Преподаватель</label>
+                           v-bind:class="{ 'uk-button-primary': type === 'lecturer' }">Преподаватель</label>
                 </div>
             </div>
         </div>
@@ -87,6 +87,12 @@
             this.name = this.$route.query.name;
             this.id = this.$route.query.id;
             this.searchQuery = this.$route.query.name;
+            if (this.type !== undefined) {
+                getData(this.type + "s").then(response => this.items = response);
+            }
+            if (this.name !== undefined) {
+                this.name = decodeURIComponent((this.name + '').replace(/\+/g, '%20'));
+            }
         },
         computed: {
             computedItems() {
@@ -117,36 +123,24 @@
                 this.type = type;
                 this.name = null;
                 this.id = null;
-                if (this.type === "lecturers" || this.type === "groups") {
-                    getData(this.type).then(response => this.items = response);
+                if (this.type === "lecturer" || this.type === "group") {
+                    getData(this.type + "s").then(response => this.items = response);
                 }
                 this.searchQuery = ''
             },
             url(webcal = false) {
-                let type;
-                switch (this.type) {
-                    case "lecturers":
-                        type = "lecturer";
-                        break;
-                    case "groups":
-                        type = "group";
-                        break;
-                    default:
-                        type = "group";
-                        break;
-                }
                 if (webcal) {
-                    return protocolWEBCAL + url + '/calendar/' + type + '/' + this.id
+                    return protocolWEBCAL + url + '/calendar/' + this.type + '/' + this.id
                 }
-                return protocolHTTP + url + '/calendar/' + type + '/' + this.id
+                return protocolHTTP + url + '/calendar/' + this.type + '/' + this.id
             },
             getPlaceholder() {
                 let str;
                 switch (this.type) {
-                    case "lecturers":
+                    case "lecturer":
                         str = "Введите ваше ФИО";
                         break;
-                    case "groups":
+                    case "group":
                         str = "Введите вашу группу";
                         break;
                     default:
