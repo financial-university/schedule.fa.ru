@@ -3,10 +3,7 @@ import {protocolHTTP, url} from "./config";
 
 export async function getData(type) {
     return await axios.get(protocolHTTP + url + /api/ + type + '.json')
-        .then(response => {
-            console.log(response.data);
-            return response.data;
-        })
+        .then(response => response.data)
         .catch(error => {
             console.log(error);
             return []

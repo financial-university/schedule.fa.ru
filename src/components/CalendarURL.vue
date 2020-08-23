@@ -61,6 +61,7 @@
                             v-clipboard:error="onError">
                         {{ url(false) }}
                     </button>
+                    <p class="link-help">Нажмите для копирования ссылки</p>
                 </div>
             </div>
         </transition>
@@ -184,4 +185,9 @@
         border-radius: 50px;
     }
 
+    .link-help {
+        opacity: 0.7;
+        text-align: center;
+        margin-top: 5px;
+    }
 </style>
