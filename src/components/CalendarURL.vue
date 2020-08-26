@@ -34,11 +34,18 @@
                                         {{ item.label }}
                                     </li>
                                 </ul>
+                              <div v-if="computedItems.length === 10" class="uk-button uk-button-disabled uk-width-expand list-complete-item"
+                              style="font-size: 0.7em; cursor: default; line-height: 1.7em;">
+                                  Продолжайте ввод чтобы увидеть больше вариантов
+                              </div>
+                            </div>
+                            <div v-else-if="!searchQuery.length">
                             </div>
                             <div v-else>
                                 <button class="uk-input uk-form-danger calendar-link">
                                     Группа не найдена
                                 </button>
+                                <p class="link-help">Проверьте название группы на <a href="https://ruz.fa.ru/ruz">сайте расписания</a></p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +55,7 @@
         <transition name="slide-fade">
             <div v-if="computedParams">
                 <div v-if="isApple">
-                    <a :href="url(true)">
+                    <a :href="url(true)" v-on:click="clickMetric">
                         <button class="uk-input uk-form-success calendar-link">
                             Подписаться на календарь
                         </button>
@@ -69,6 +76,7 @@
 </template>
 
 <script>
+    /* global ym */
     import {getData} from "../api";
     import {protocolHTTP, protocolWEBCAL, url} from "../config";
     import {isIOS, isMobileSafari, isSafari, osName} from 'mobile-device-detect';
@@ -98,9 +106,10 @@
         computed: {
             computedItems() {
                 const filterMax = (fn, c) => x => c && fn(x) && c--;
-                return this.items.filter(filterMax((item) => {
-                        return item.label.trim().toUpperCase().startsWith(this.searchQuery.toUpperCase())
-                    }, 10)
+                if (this.searchQuery === "") return []
+                return this.items.filter(filterMax(item =>
+                         item.label.trim().toUpperCase().startsWith(this.searchQuery.toUpperCase())
+                    , 10)
                 );
             },
             computedParams() {
@@ -151,10 +160,14 @@
                 return str;
             },
             onCopy: function () {
+                this.clickMetric()
                 alert('Ссылка скопирована');
             },
             onError: function () {
                 alert('Ошибка при копировании ссылки');
+            },
+            clickMetric: function (){
+                ym(56596660,'reachGoal','calendar_link')
             }
         }
     }
@@ -187,7 +200,8 @@
 
     .link-help {
         opacity: 0.7;
+        font-size: 0.8em;
         text-align: center;
-        margin-top: 5px;
+        margin-top: 7px;
     }
 </style>
